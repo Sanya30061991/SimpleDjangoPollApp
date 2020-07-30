@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import UserForm
 from .models import User
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 def logg(request):
     context = {
         'form':UserForm(),
@@ -10,11 +10,11 @@ def logg(request):
     if request.method =="POST":
         username = request.POST['email']
         password = request.POST['password']
-        user = User.objects.get(username=username)
-        if user is not None and password==user.password and username==user.username:
+        user = authenticate(username = username, password = password)
+        if user is not None:
             login(request, user)
             return redirect('polls')
-        elif user is not None or user!=user.password:
+        else:
             context['errors'].append("Invalid login or password.")
             return render(request, 'Authorization/login.html', context)
     else:
