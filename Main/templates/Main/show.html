@@ -1,0 +1,108 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Polls List</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <style type="text/css">
+    header .main-nav{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 4000;
+}
+header .main-nav-scrolled{
+	background-color: rgba(0,0,0,0.4);
+}
+.navbar-light .navbar-nav .nav-link{
+	color: #fff;
+}
+.navbar-light .navbar-nav .active .nav-link{
+	color: #00e0d0;
+}
+
+/*for test*/
+body{
+  height: 400px;
+}    </style>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        window.alert = function(){};
+        var defaultCSS = document.getElementById('bootstrap-css');
+        function changeCSS(css){
+            if(css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="'+ css +'" type="text/css" />'); 
+            else $('head > link').filter(':first').replaceWith(defaultCSS); 
+        }
+        $( document ).ready(function() {
+          var iframe_height = parseInt($('html').height()); 
+          window.parent.postMessage( iframe_height, 'https://bootsnipp.com');
+        });
+    </script>
+</head>
+<body>
+    
+
+  
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  
+  
+    <header>
+       <nav class="navbar navbar-expand-lg navbar-light bg-danger text-light py-3 main-nav">
+          <div class="container">
+            <a class="navbar-brand" href="show">Polls App</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link text-uppercase" href="index.html">Home<span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-uppercase" href="#story">Create Poll</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-uppercase" href="#expertise">Check Your Polls</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link  text-uppercase" href="logout">Log Out</a>
+                  </li>
+                </ul>
+              </div>
+          </div>
+        </nav>
+    </header>
+    <br><br><br><br><br>
+    <div class="container">
+        {% if polls %}
+        {% for poll in polls %}
+        <div class = 'alert alert-danger'>
+            <h1>{{poll.title}}</h1>
+            <form action="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn alert-default" formaction="voting" value={{poll.title}} >Vote</button>
+                <button type="submit" class="btn alert-success" formaction="results" value={{poll.title}} >See Results</button>
+            </form>
+        </div>
+        {%endfor%}
+        {% endif %}
+        {% if polls is None %}
+        <div class = 'alert alert-warning'>
+            <h1>There is no Polls.</h1>
+        </div>
+        {% endif %}
+    </div>
+    
+</body>
+</html>
