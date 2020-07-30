@@ -85,25 +85,22 @@ body{
     </header>
     <br><br><br><br><br>
     <div class="container">
-        {% if polls %}
-        {% for poll in polls %}
-        <div class = 'alert alert-danger'>
+        <div class = "alert alert-success">
             <div style="text-align: center;">
                 <h1>{{poll.title}}</h1>
-                <form action="GET">
-                    {% csrf_token %}
-                    <button name = "Vote" type="submit" class="btn alert-default" formaction="vote" value={{poll.id}} >Vote</button>
-                    <button name = "Results" type="submit" class="btn alert-success" formaction="results" value={{poll.id}} >See Results</button>
-                </form>
+                <h3>{{poll.option1}}-{{poll.votes1}} votes</h3>
+                <h3>{{poll.option2}}-{{poll.votes2}} votes</h3>
+                <h3>{{poll.option3}}-{{poll.votes3}} votes</h3>
+                <h2>Total votes: {{poll.total}}</h2>
+                  {% if errors %}
+                  {% for error in errors %}
+                  <span class="blockquote-footer">
+                    {{error}}
+                  </span>
+                  {% endfor %}
+                  {% endif %}
             </div>
         </div>
-        {%endfor%}
-        {% endif %}
-        {% if polls is None %}
-        <div class = 'alert alert-warning'>
-            <h1>There is no Polls.</h1>
-        </div>
-        {% endif %}
     </div>
     
 </body>
