@@ -34,7 +34,10 @@ def regg(request):
             return render(request, 'Authorization/register.html', context)
         else:
             if request.POST['last_name']==request.POST['password']:
-                form = UserForm(request.POST)
+                user = User.objects.create_user(request.POST['first_name'],request.POST['email'],request.POST['password'])
+                user.first_name=user.username
+                user.username = request.POST['email']
+                user.save()
                 return redirect('logg')
             else:
                 context['errors'].append("Passwords aren't matching!")
