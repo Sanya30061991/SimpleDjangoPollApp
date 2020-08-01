@@ -6,8 +6,32 @@ from django.contrib.auth import logout
 
 def creatte(request):
     context = {
-        ''
+        'form':PollForm(),
+        'errors':[]
     }
+    if request.method == "POST":
+        try:
+            check = Poll.objects.get(title=request.POST['title'])
+        except Poll.DoesNotExist:
+            check = None
+        if check is None:
+            dicc = {
+            'title' : request.POST['title'],
+            'option1' : request.POST['option1'],
+            'option2' : request.POST['option2'],
+            'option3' : request.POST['option3'],
+            'owner_id' : request.user.id,
+            'votes1' : 0,
+            'votes2' : 0,
+            'votes3' : 0,
+            'total':0
+            }
+            form = PollForm(dicc)
+            form.save()
+            return redirect('polls')
+        else:
+            context['errors'].append("Poll with such a title has been already created!")
+    return render(request, 'Main/newpoll.html', context)
 
 def res(request):
     if request.method == "GET":

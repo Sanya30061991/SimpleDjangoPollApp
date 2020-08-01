@@ -54,7 +54,9 @@ body{
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     
     <link rel="stylesheet" type="text/css" href="css/style.css">
-  
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   
     <header>
        <nav class="navbar navbar-expand-lg navbar-light bg-danger text-light py-3 main-nav">
@@ -84,9 +86,59 @@ body{
         </nav>
     </header>
     <br><br><br><br><br>
-    <div class="container">
+        <div class="container">
+            <div class="row">
+                <h2>Create your poll.</h2>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-xl-12">
+                           {{form.title}}
+                       </div>
+               </div>
+               
+                <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-group-sm">
+                                <label for="firstname" class="control-label">Option 1</label>
+                                {{form.option1}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="lastname" class="control-label">Option 2</label>
+                                {{form.option2}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="lastname" class="control-label">Option 3</label>
+                                {{form.option3}}
+                            </div>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-5">
+                    </div>
+                    <div class="col-xl-2">
+                           <button type="submit" class="btn btn-default">Submit</button>
+                       </div>
+                       <div class="col-xl-5">
+                    </div>
+               </div>
+            </form>
+            {% if errors %}
+                  {% for error in errors %}
+                  <span class="blockquote-footer">
+                    {{error}}
+                  </span>
+                  {% endfor %}
+                  {% endif %}
         
-    </div>
+        
+        
+        </div>
     
 </body>
 </html>
