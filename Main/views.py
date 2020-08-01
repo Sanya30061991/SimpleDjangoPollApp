@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Poll
+from .models import Poll, Voted
 from .forms import PollForm
 from django.contrib.auth import logout
 # Create your views here.
@@ -31,7 +31,10 @@ def vote(request):
             poll = Poll.objects.get(id=id)
             poll.votes1 = poll.votes1+1
             poll.total = poll.total+1
+            vvote = Voted(request.user.id, id)
+            vvote.save()
             poll.save()
+            votte = Voted(request.user.)
             context = {
                 'poll':poll
             }
@@ -52,6 +55,7 @@ def vote(request):
             poll.votes3 = poll.votes3+1
             poll.total = poll.total+1
             poll.save()
+
             context = {
                 'poll':poll
             }

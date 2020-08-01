@@ -1,6 +1,10 @@
 from django.db import models
 
 # Create your models here.
+class Voted(models.Model):
+    user_id = models.IntegerField('User that has been voting', max_length=100)
+    poll_id = models.IntegerField('Poll', max_length=100)
+
 class Poll(models.Model):
     owner_id = models.CharField('Owner\'s id', max_length=100)
     title = models.CharField('Title', max_length=50)
