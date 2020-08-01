@@ -90,7 +90,7 @@ body{
         <div class = 'alert alert-danger'>
             <div style="text-align: center;">
                 <h1>{{poll.title}}</h1>
-                <form action="GET">
+                <form action="POST">
                     {% csrf_token %}
                     <button name = "Vote" type="submit" class="btn alert-default" formaction="vote" value={{poll.id}} >Vote</button>
                     <button name = "Results" type="submit" class="btn alert-success" formaction="results" value={{poll.id}} >See Results</button>

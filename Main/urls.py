@@ -5,5 +5,6 @@ urlpatterns = [
     path('logout', views.loggggg, name = 'logoff'),
     path('vote', views.vote, name = 'vote'),
     path('results', views.res, name = 'results'),
-    path('newpoll', views.creatte, name = 'create')
+    path('newpoll', views.creatte, name = 'create'),
+    path('yourpolls', views.your, name = 'your')
 ]

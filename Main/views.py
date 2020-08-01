@@ -4,6 +4,13 @@ from .forms import PollForm
 from django.contrib.auth import logout
 # Create your views here.
 
+def your(request):
+    context = {
+        'errors':[],
+        'polls':Poll.objects.filter(owner_id=request.user.id)
+    }
+    return render(request, 'Main/yourpolls.html', context)
+
 def creatte(request):
     context = {
         'form':PollForm(),
