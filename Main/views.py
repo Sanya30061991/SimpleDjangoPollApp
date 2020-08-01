@@ -4,6 +4,11 @@ from .forms import PollForm
 from django.contrib.auth import logout
 # Create your views here.
 
+def creatte(request):
+    context = {
+        ''
+    }
+
 def res(request):
     if request.method == "GET":
         id = request.GET['Results']
@@ -16,12 +21,24 @@ def res(request):
 def vote(request):
     if request.method == "GET":
         id = request.GET['Vote']
-        poll = Poll.objects.get(id=id)
-        context = {
-            'poll':poll,
-            'errors':[]
-        }
-        return render(request, 'Main/vote.html', context)
+        try:
+            check = Voted.objects.get(user_id=request.user.id, poll_id=id)
+        except Voted.DoesNotExist:
+            check = None
+        if check is None:
+            poll = Poll.objects.get(id=id)
+            context = {
+                'poll':poll,
+                'errors':[]
+            }
+            return render(request, 'Main/vote.html', context)
+        else:
+            poll = Poll.objects.get(id=id)
+            context = {
+                'poll':poll,
+                'errors': ["You have already voted to this poll!"]
+            }
+            return render(request, 'Main/result.html', context)
     elif request.method == "POST":
         context = {
             'errors':[]
@@ -31,10 +48,9 @@ def vote(request):
             poll = Poll.objects.get(id=id)
             poll.votes1 = poll.votes1+1
             poll.total = poll.total+1
-            vvote = Voted(request.user.id, id)
+            vvote = Voted(user_id=request.user.id, poll_id=id)
             vvote.save()
             poll.save()
-            votte = Voted(request.user.)
             context = {
                 'poll':poll
             }
@@ -45,6 +61,8 @@ def vote(request):
             poll.votes2 = poll.votes2+1
             poll.total = poll.total+1
             poll.save()
+            vvote = Voted(request.user.id, id)
+            vvote.save()
             context = {
                 'poll':poll
             }
@@ -55,7 +73,8 @@ def vote(request):
             poll.votes3 = poll.votes3+1
             poll.total = poll.total+1
             poll.save()
-
+            vvote = Voted(request.user.id, id)
+            vvote.save()
             context = {
                 'poll':poll
             }
