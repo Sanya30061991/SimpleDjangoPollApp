@@ -4,8 +4,11 @@ from .models import Poll
 class PollForm(ModelForm):
     class Meta:
         model = Poll
-        fields = ['title', 'option1', 'option2', 'option3']
+        fields = ['owner_id','title', 'option1', 'option2', 'option3']
         widgets = {
+            'owner_id':TextInput( attrs = {
+                'type':'hidden'
+            }),
             'title': Textarea( attrs= {
                 'class':"form-control",
                 'placeholder':"Title of Poll"

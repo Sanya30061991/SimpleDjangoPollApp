@@ -9,6 +9,8 @@ def your(request):
         'errors':[],
         'polls':Poll.objects.filter(owner_id=request.user.id)
     }
+    if request.method == "POST" and 'Delete' in request.POST:
+        Poll.objects.filter(id=request.POST['Delete']).delete()
     return render(request, 'Main/yourpolls.html', context)
 
 def creatte(request):
@@ -23,11 +25,11 @@ def creatte(request):
             check = None
         if check is None:
             dicc = {
+            'owner_id' : request.user.id,
             'title' : request.POST['title'],
             'option1' : request.POST['option1'],
             'option2' : request.POST['option2'],
             'option3' : request.POST['option3'],
-            'owner_id' : request.user.id,
             'votes1' : 0,
             'votes2' : 0,
             'votes3' : 0,

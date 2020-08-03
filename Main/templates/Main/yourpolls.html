@@ -90,16 +90,15 @@ body{
         <div class = 'alert alert-danger'>
             <div style="text-align: center;">
                 <h1>{{poll.title}}</h1>
-                <form action="POST">
+                <form method="POST">
                     {% csrf_token %}
-                    <button name = "Vote" type="submit" class="btn alert-default" formaction="vote" value={{poll.id}} >Vote</button>
+                    <button name = "Delete" type="submit" class="btn alert-default" value={{poll.id}}>Delete</button>
                     <button name = "Results" type="submit" class="btn alert-success" formaction="results" value={{poll.id}} >See Results</button>
                 </form>
             </div>
         </div>
         {%endfor%}
-        {% endif %}
-        {% if polls is None %}
+        {% else %}
         <div class = 'alert alert-warning'>
             <h1>There is no Polls.</h1>
         </div>

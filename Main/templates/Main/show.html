@@ -98,8 +98,7 @@ body{
             </div>
         </div>
         {%endfor%}
-        {% endif %}
-        {% if polls is None %}
+        {% else %}
         <div class = 'alert alert-warning'>
             <h1>There is no Polls.</h1>
         </div>
